@@ -1,0 +1,114 @@
+
+R version 4.4.2 (2024-10-31 ucrt) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> data(iris)
+> summary(iris)
+  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width          Species  
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500                  
+> str(iris)
+'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+> head(iris)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+> mean_values <- colMeans(iris[, 1:4])
+> median_values <- apply(iris[, 1:4], 2, median) # Median of the numeric columns
+> sd_values <- apply(iris[, 1:4], 2, sd) # Standard deviation for numeric columns
+> cat("\nMean values:\n", mean_values)
+
+Mean values:
+ 5.843333 3.057333 3.758 1.199333> 
+> cat("\nMedian values:\n", median_values )
+
+Median values:
+ 5.8 3 4.35 1.3> 
+> cat("\nStandard Deviation values:\n", sd_values)
+
+Standard Deviation values:
+ 0.8280661 0.4358663 1.765298 0.7622377> 
+> table(iris$Species)
+
+    setosa versicolor  virginica 
+        50         50         50 
+> anova_result <- aov(Sepal.Length ~ Species, data = iris)
+> summary(anova_result)
+             Df Sum Sq Mean Sq F value Pr(>F)    
+Species       2  63.21  31.606   119.3 <2e-16 ***
+Residuals   147  38.96   0.265                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> pairwise_result <- pairwise.t.test(iris$Sepal.Length, iris$Species)
+> pairwise_result
+
+        Pairwise comparisons using t tests with pooled SD 
+
+data:  iris$Sepal.Length and iris$Species 
+
+           setosa  versicolor
+versicolor 1.8e-15 -         
+virginica  < 2e-16 2.8e-09   
+
+P value adjustment method: holm 
+> correlation_matrix <- cor(iris[, 1:4])
+> cat("\nCorrelation matrix:\n", correlation_matrix)
+
+Correlation matrix:
+ 1 -0.1175698 0.8717538 0.8179411 -0.1175698 1 -0.4284401 -0.3661259 0.8717538 -0.4284401 1 0.9628654 0.8179411 -0.3661259 0.9628654 1> 
+> pairs(iris[, 1:4], main = "Scatterplot Matrix")
+> packages <- rownames(installed.packages())
+Warning messages:
+1: unable to open printer 
+2: opening device failed 
+> print(packages)
+  [1] "abind"          "backports"      "base"           "base64enc"      "bit"            "bit64"          "boot"           "broom"          "bslib"         
+ [10] "cachem"         "car"            "carData"        "caret"          "class"          "cli"            "clipr"          "clock"          "cluster"       
+ [19] "codetools"      "colorspace"     "compiler"       "corrplot"       "cowplot"        "cpp11"          "crayon"         "crosstalk"      "curl"          
+ [28] "data.table"     "datasets"       "DBI"            "dendextend"     "Deriv"          "diagram"        "digest"         "DMwR2"          "doBy"          
+ [37] "dplyr"          "DT"             "e1071"          "ellipse"        "emmeans"        "estimability"   "evaluate"       "factoextra"     "FactoMineR"    
+ [46] "fansi"          "farver"         "fastmap"        "flashClust"     "fontawesome"    "foreach"        "foreign"        "Formula"        "fs"            
+ [55] "future"         "future.apply"   "generics"       "ggplot2"        "ggpubr"         "ggrepel"        "ggsci"          "ggsignif"       "globals"       
+ [64] "glue"           "gower"          "graphics"       "grDevices"      "grid"           "gridExtra"      "gtable"         "hardhat"        "highr"         
+ [73] "hms"            "htmltools"      "htmlwidgets"    "httpuv"         "ipred"          "isoband"        "iterators"      "jquerylib"      "jsonlite"      
+ [82] "KernSmooth"     "knitr"          "labeling"       "later"          "lattice"        "lava"           "lazyeval"       "leaps"          "lifecycle"     
+ [91] "listenv"        "lme4"           "lubridate"      "magrittr"       "MASS"           "Matrix"         "MatrixModels"   "memoise"        "methods"       
+[100] "mgcv"           "microbenchmark" "mime"           "minqa"          "ModelMetrics"   "modelr"         "multcompView"   "munsell"        "mvtnorm"       
+[109] "nlme"           "nloptr"         "nnet"           "numDeriv"       "parallel"       "parallelly"     "pbkrtest"       "pillar"         "pkgconfig"     
+[118] "plyr"           "polynom"        "prettyunits"    "pROC"           "prodlim"        "progress"       "progressr"      "promises"       "proxy"         
+[127] "purrr"          "quantmod"       "quantreg"       "R6"             "RANN"           "rappdirs"       "rbibutils"      "RColorBrewer"   "Rcpp"          
+[136] "RcppEigen"      "Rdpack"         "readr"          "recipes"        "reformulas"     "reshape2"       "rlang"          "rmarkdown"      "ROSE"          
+[145] "rpart"          "rstatix"        "sass"           "scales"         "scatterplot3d"  "shape"          "SparseM"        "sparsevctrs"    "spatial"       
+[154] "splines"        "SQUAREM"        "stats"          "stats4"         "stringi"        "stringr"        "survival"       "tcltk"          "themis"        
+[163] "tibble"         "tidyr"          "tidyselect"     "timechange"     "timeDate"       "tinytex"        "tools"          "translations"   "TTR"           
+[172] "tzdb"           "utf8"           "utils"          "vctrs"          "viridis"        "viridisLite"    "vroom"          "withr"          "xfun"          
+[181] "xts"            "yaml"           "zoo"           
+> 
